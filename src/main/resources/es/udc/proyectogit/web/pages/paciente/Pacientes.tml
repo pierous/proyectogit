@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    
+    <t:if test="medSession">
+        <!-- Menu de medico -->
+        <div id="menuMedico">
+            <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:1">
+                <t:if test="propios">
+                    <div class="opcionElegida">
+                        ${message:pacientesPropios-link}
+                    </div>
+                    <p:else>
+                        <div class="opcion">
+                            ${message:pacientesPropios-link}
+                        </div>
+                    </p:else>
+                </t:if>
+            </a>
+            <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:2">
+                <t:if test="todos">
+                    <div class="opcionElegida">
+                        ${message:pacientesTodos-link}
+                    </div>
+                    <p:else>
+                        <div class="opcion">
+                            ${message:pacientesTodos-link}
+                        </div>
+                    </p:else>
+                </t:if>
+            </a>
+        </div>
+        
+        <p:else>
+            <div id="tituloContenido">
+                ${message:titulo-label}
+            </div>
+        </p:else>
+    </t:if>
+    
+    
+    <form t:type="Form" t:id="formularioBusqueda">
+        <!-- Campo DNI -->
+        <div class="campo">
+            <label t:type="label" for="dni">${message:dniBusqueda-label}</label>
+            <span class="entrada">
+                <input t:id="dni" t:type="TextField"
+                       size="10" maxlength="9"/>
+            </span>
+        </div>
+        
+        <!-- Campo Nombre -->
+        <div class="campo">
+            <label t:type="label" for="nombre">${message:nombreBusqueda-label}</label>
+            <span class="entrada">
+                <input t:id="nombre" t:type="TextField"
+                       size="20" maxlength="30"/>
+            </span>
+        </div>
+        
+        <!-- Campo Apellido1 -->
+        <div class="campo">
+            <label t:type="label" for="apellido1">${message:apellido1Busqueda-label}</label>
+            <span class="entrada">
+                <input t:id="apellido1" t:type="TextField"
+                       size="20" maxlength="30"/>
+            </span>
+        </div>
+        
+        <!-- Campo Apellido2 -->
+        <t:if test="${mostrarSegundoApellido()}">
+            <div class="campo">
+                <label t:type="label" for="apellido2">${message:apellido2Busqueda-label}</label>
+                <span class="entrada">
+                    <input t:id="apellido2" t:type="TextField"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        </t:if>
+        
+        
+        <!-- Boton Buscar -->
+        <div class="boton">
+            <input type="submit" value="${message:buscar-button}"/>
+        </div>
+    </form>
+    
+    
+    <t:if test="medSession" negate="true">
+        <div id="menuAdministrador">
+            <a t:type="PageLink" t:page="paciente/CrearPaciente">
+                <div class="opcion">
+                    ${message:agregar-link}
+                </div>
+            </a>
+        </div>
+    </t:if>
+    
+    
+    <div id="tabla">
+        <table t:type="Grid" t:source="pacientes" t:row="paciente" t:rowsPerPage="20" t:model="modelo" t:empty="${message:tabla-vacia}"
+               t:mixins="RowEvent" t:event="rowClicked">
+            <p:dniCell>
+                ${paciente.dni.toString()}
+            </p:dniCell>
+            <p:medicoCell>
+                <t:if test="${getMedico(paciente.clave)}">
+                    <a t:type="ActionLink" t:id="linkMedico" t:context="${getMedico(paciente.clave).clave}">
+                        ${getMedico(paciente.clave).nombreCompleto}
+                    </a>
+                </t:if>
+            </p:medicoCell>
+            <p:accionesCell>
+                <div id="acciones">
+                <t:if test="${getMedico(paciente.clave)}">
+                    <t:if test="${esDesvinculable(paciente.clave)}">
+                        <div id="accion">
+                            <a t:type="ActionLink" t:id="quitarMedico" t:context="paciente.clave">
+                                <img src="${context:/imagenes/Desvincular.png}" title="${message:desvincular-button}"/>
+                            </a>
+                        </div>
+                    </t:if>
+                    <p:else>
+                        <t:if test="${esAdministrador()}">
+                            <div id="accion">
+                                <a t:type="PageLink" t:page="medico/AsignarPaciente" t:context="paciente.clave">
+                                    <img src="${context:/imagenes/Asignar.png}" title="${message:asignar-button}"/>
+                                </a>
+                            </div>
+                        </t:if>
+                        <div id="accion">
+                            <a t:type="ActionLink" t:id="agregarPaciente" t:context="paciente.clave">
+                                <img src="${context:/imagenes/Anhadir.png}" title="${message:vincular-button}"/>
+                            </a>
+                        </div>
+                    </p:else>
+                </t:if>
+                </div>
+            </p:accionesCell>
+        </table>
+    </div>
+        
+    
+    
+</html>

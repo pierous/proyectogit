@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    <div id="tituloContenido">
+        ${message:titulo-label}
+    </div>
+    
+    
+    <div id="perfil">
+        
+        <!-- Campo Dni -->
+        <div id="campo">
+            <div class="nombre">${message:dni-label}</div>
+            <div class="valor">${dni}<br/></div>
+        </div>
+        
+        <!-- Campo Nombre -->
+        <div id="campo">
+            <div class="nombre">${message:nombre-label}</div>
+            <div class="valor">${nombre}<br/></div>
+        </div>
+        
+        <!-- Campo Apellido1 -->
+        <div id="campo">
+            <div class="nombre">${message:apellido1-label}</div>
+            <div class="valor">${apellido1}<br/></div>
+        </div>
+        
+        <!-- Campo Apellido2 -->
+        <t:if test="${mostrarSegundoApellido()}">
+            <div id="campo">
+                <div class="nombre">${message:apellido2-label}</div>
+                <div class="valor">${apellido2}<br/></div>
+            </div>
+        </t:if>
+        
+        <!-- Campo Nombre Login -->
+        <t:if test="esLogueado()">
+            <div id="campo">
+                <div class="nombre">${message:nombreLogin-label}</div>
+                <div class="valor">${nombreLogin}<br/></div>
+            </div>
+        </t:if>
+        
+        
+        <!-- Botones -->
+        <div class="button">
+            <a t:type="ActionLink" t:id="editar">${message:editar-button}</a>
+            <t:if test="esEliminable()">
+                <a t:type="ActionLink" t:id="eliminar">${message:eliminar-button}</a>
+            </t:if>
+        </div>
+        
+        
+    </div>
+    
+    
+</html>

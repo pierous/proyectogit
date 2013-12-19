@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xml:space="preserve"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo">
+    
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+        
+        <div id="formularioStyle">
+            
+            <div class="titulo">
+                <t:if test="clave">
+                    ${message:editar-titulo}
+                    <p:else>
+                        ${message:crear-titulo}
+                    </p:else>
+                </t:if>
+            </div>
+        
+            <!-- Campo Nombre -->
+            <div class="campo">
+                <label t:type="label" for="nombre">${message:nombre-label}</label>
+                <span class="entrada">
+                    <input t:id="nombre" t:type="TextField"
+                           t:validate="required"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        
+            <!--Campo supervisor-->
+            <t:if test="clave">
+                <div class="campo">
+                    <t:label for="supervisor">${message:supervisor-label}</t:label>
+                    <span class="entrada">
+                        <select t:type="select" t:id="supervisor"
+                                model="modeloSupervisor" encoder="encoderSupervisor"/>
+                    </span>
+                </div>
+            </t:if>
+        
+        
+            <!-- Boton Crear -->
+            <div class="boton">
+                <t:if test="clave">
+                    <input type="submit" value="${message:editar-button}"/>
+                    <p:else>
+                        <input type="submit" value="${message:crear-button}"/>
+                    </p:else>
+                </t:if>
+            </div>
+        
+        </div>
+        
+    </form>
+    
+    
+</html>

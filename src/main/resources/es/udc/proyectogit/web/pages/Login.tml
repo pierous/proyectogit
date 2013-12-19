@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xml:space="preserve"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo">
+    
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+        
+        <div id="formularioStyle">
+        
+            <div class="titulo">
+                <t:if test="${esAdministrador()}">
+                    ${message:administrador-titulo}
+                    <p:else>
+                        ${message:medico-titulo}
+                    </p:else>
+                </t:if>
+            </div>
+        
+            <!-- Campo NombreLogin -->
+            <div class="campo">
+                <label t:type="label" for="nombreLogin">${message:nombreLogin-label}</label>
+                <span class="entrada">
+                    <input t:id="nombreLogin" t:type="TextField"
+                           t:validate="required"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        
+            <!-- Campo Password -->
+            <div class="campo">
+                <t:label for="password">${message:password-label}</t:label>
+                <span class="entrada">
+                    <input t:id="password" t:type="PasswordField"
+                           t:validate="required"
+                           size="20" maxlength="20"/>
+                </span>
+            </div>
+        
+            <!-- Campo Recordar Password -->
+            <div class="campo">
+                <input t:type="Checkbox" t:id="recordarMiPassword" />
+                <t:label for="recordarMiPassword">${message:recordarPassword-label}</t:label>
+            </div>
+        
+            <!-- Boton login -->
+            <div class="boton">
+                <input type="submit" value="${message:login-button}"/>
+            </div>
+        
+        </div>
+    
+    </form>
+    
+
+
+    <div id="suplemento">
+        <a t:type="ActionLink" t:id="cambiarLogin">
+            <t:if test="${esAdministrador()}" negate="true">
+                ${message:accesoAdmin-link}
+                <p:else>
+                    ${message:accesoMedico-link}
+                </p:else>
+            </t:if>
+        </a>
+    </div>
+
+
+</html>

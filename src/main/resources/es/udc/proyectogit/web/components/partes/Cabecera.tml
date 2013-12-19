@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      xml:space="preserve">
+
+
+    <div id="cabecera">
+        <div id="titulo">
+            <a t:type="PageLink" t:page="Index">${message:cabecera}</a>
+        </div>
+        
+        <div id="usuario">
+            <t:if test="adminSession">
+                <a t:type="PageLink" t:page="administrador/PerfilAdministrador" t:context="adminSession.userId">
+                    ${adminSession.nombre}
+                </a>
+                <a t:type="ActionLink" t:id="logoutAdmin">
+                    <img src="${context:/imagenes/Logout.png}" title="${message:cabecera-logout}"/>
+                </a>
+                <p:else>
+                    <t:if test="medSession">
+                        <a t:type="PageLink" t:page="medico/PerfilMedico" t:context="medSession.userId">
+                            ${medSession.nombre}
+                        </a>
+                        <a t:type="ActionLink" t:id="logoutMed" >
+                            <img src="${context:/imagenes/Logout.png}" title="${message:cabecera-logout}"/>
+                        </a>
+                        <p:else>
+                            <a t:type="PageLink" t:page="Login">
+                                ${message:menu-login}
+                            </a>
+                        </p:else>
+                    </t:if>
+                </p:else>
+            </t:if>
+        </div>
+    </div>
+    
+    
+</html>

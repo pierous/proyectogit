@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="es.udc.proyectogit.modelo.prueba.Prueba" table="pruebas">
+        
+        <!--Clave-->
+        <id name="clave" column="pruebaID">
+            <generator class="increment"/>
+        </id>
+        
+        <!--Informe-->
+        <many-to-one name="informe" column="informeID"/>
+        
+        <!--FechaSolicitud-->
+        <property name="fechaSolicitud" column="fechaSolicitud"/>
+        
+        <!--FechaInicio-->
+        <property name="fechaInicio" column="fechaInicio"/>
+        
+        <!--FechaFin-->
+        <property name="fechaFin" column="fechaFin"/>
+        
+        <!--Paciente-->
+        <many-to-one name="paciente" column="pacienteID"/>
+        
+        <!--Solicitante-->
+        <many-to-one name="solicitante" column="solicitanteID"/>
+        
+        <!--Medico-->
+        <many-to-one name="medico" column="medicoID"/>
+        
+        <!--Plantilla-->
+        <many-to-one name="plantilla" column="plantillaID"/>
+                    
+        <!--Valores-->
+        <set name="valores" table="pruebas_valores" cascade="delete, save-update">
+            <key column="pruebaID" not-null="true"/>
+            <many-to-many class="es.udc.proyectogit.modelo.valor.Valor" column="valorID"/>
+        </set>
+        
+        <!--Imagenes-->
+        <set name="imagenes" inverse="true" cascade="delete, save-update">
+            <key column="pruebaID"/>
+            <one-to-many class="es.udc.proyectogit.modelo.imagen.Imagen"/>
+        </set>
+        
+        <!--observacionesSolicitante-->
+        <property name="observacionesSolicitante" column="observacionesSolicitante" type="text"/>
+        
+        <!--Observaciones-->
+        <property name="observaciones" column="observaciones" type="text"/>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    <div id="tituloContenido">
+        ${message:titulo-label}
+    </div>
+    
+    
+    <form t:type="Form" t:id="formularioBusqueda">
+        <!-- Campo Nombre -->
+        <div class="campo">
+            <label t:type="label" for="nombreBusqueda">${message:nombreBusqueda-label}</label>
+            <span class="entrada">
+                <input t:id="nombreBusqueda" t:type="TextField"
+                       size="20" maxlength="30"/>
+            </span>
+        </div>
+        
+        <!-- Campo Departamento -->
+        <div class="campo">
+            <label t:type="label" for="departamentoBusqueda">${message:departamentoBusqueda-label}</label>
+            <span class="entrada">
+                <select t:type="select" t:id="departamentoBusqueda"
+                        model="modeloDepartamento" encoder="encoderDepartamento"/>
+            </span>
+        </div>
+        
+        
+        <!-- Boton Buscar -->
+        <div class="boton">
+            <input type="submit" value="${message:buscar-button}"/>
+        </div>
+    </form>
+    
+    
+    <div id="menuAdministrador">
+        <a t:type="ActionLink" t:id="agregarPlantilla">
+        <div class="opcion">
+            ${message:agregar-link}
+        </div>
+        </a>
+    </div>
+    
+    
+    <div id="tabla">
+        <table t:type="Grid" t:source="plantillas" t:row="plantilla" t:model="modelo" t:empty="${message:tabla-vacia}"
+               t:mixins="RowEvent" t:event="rowClicked" t:rowsPerPage="20">
+            <p:fechaCell>
+                ${formatoFecha.formatearFechaCorta(plantilla.fecha)}
+            </p:fechaCell>
+            <p:departamentoCell>
+                ${getDepartamento(plantilla.clave)}
+            </p:departamentoCell>
+        </table>
+    </div>
+    
+    
+</html>

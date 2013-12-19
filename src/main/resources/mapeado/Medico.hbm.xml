@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="es.udc.proyectogit.modelo.medico.Medico" table="medicos">
+        
+        <!--Clave-->
+        <id name="clave" column="medicoID">
+            <generator class="increment"/>
+        </id>
+        
+        <!--Dni-->
+        <component name="dni" class="es.udc.proyectogit.modelo.utiles.dni.Dni">
+            <property name="dni" column="dni"/>
+        </component>
+        
+        <!--Nombre-->
+        <property name="nombre" column="nombre"/>
+        
+        <!--Apellido1-->
+        <property name="apellido1" column="ap1"/>
+        
+        <!--Apellido2-->
+        <property name="apellido2" column="ap2"/>
+        
+        <!--Fecha nacimiento-->
+        <property name="fechaNacimiento" column="fNacim"/>
+        
+        <!--Telefono-->
+        <property name="telefono" column="telf"/>
+        
+        <!--Direccion-->
+        <component name="direccion" class="es.udc.proyectogit.modelo.utiles.direccion.Direccion">
+            <property name="calle" column="calle"/>
+            <property name="provincia" column="provincia"/>
+            <property name="localidad" column="localidad"/>
+            <property name="codigoPostal" column="codigoPostal"/>
+            <property name="numero" column="numero"/>
+            <property name="piso" column="piso"/>
+            <property name="letra" column="letra"/>
+        </component>
+        
+        <!--nombreLogin-->
+        <property name="nombreLogin" column="nombreLogin"/>
+        
+        <!--PasswordEncriptado-->
+        <property name="passwordEncriptado" column="password"/>
+        
+        <!--Departamento-->
+        <many-to-one name="departamento" column="departamentoID"/>
+
+        <!--DepSupervisado-->
+        <one-to-one name="depSupervisado" property-ref="supervisor"/>
+        
+        <!--Informes-->
+        <set name="informes" inverse="true">
+            <key column="medicoID"/>
+            <one-to-many class="es.udc.proyectogit.modelo.informe.Informe"/>
+        </set>
+        
+        <!--PruebasSolicitadas-->
+        <set name="pruebasSolicitadas" inverse="true">
+            <key column="solicitanteID"/>
+            <one-to-many class="es.udc.proyectogit.modelo.prueba.Prueba"/>
+        </set>
+        
+        <!--Pruebas-->
+        <set name="pruebas" inverse="true">
+            <key column="medicoID"/>
+            <one-to-many class="es.udc.proyectogit.modelo.prueba.Prueba"/>
+        </set>
+        
+        <!--Pacientes-->
+        <set name="pacientes" inverse="true">
+            <key column="medicoID"/>
+            <one-to-many class="es.udc.proyectogit.modelo.paciente.Paciente"/>
+        </set>
+        
+    </class>
+</hibernate-mapping>

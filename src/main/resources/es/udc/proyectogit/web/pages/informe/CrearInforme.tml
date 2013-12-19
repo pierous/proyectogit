@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xml:space="preserve"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo">
+    
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+        
+        <div id="formularioStyle">
+            
+            <div class="titulo">
+                <t:if test="clave">
+                    ${message:editar-titulo}
+                    <p:else>
+                        ${message:crear-titulo}
+                    </p:else>
+                </t:if>
+            </div>
+        
+            <!-- Campo Observaciones Previas -->
+            <div class="campo">
+                <label t:type="label" for="observacionesPrevias">${message:observacionesPrevias-label}</label>
+                <span class="entrada">
+                    <textarea t:id="observacionesPrevias" t:type="TextArea"
+                           t:validate="required"
+                           size="300" maxlength="2000"/>
+                </span>
+            </div>
+            
+            <!-- Campo Diagnostico -->
+            <div class="campo">
+                <label t:type="label" for="diagnostico">${message:diagnostico-label}</label>
+                <span class="entrada">
+                    <textarea t:id="diagnostico" t:type="TextArea"
+                           size="300" maxlength="2000"/>
+                </span>
+            </div>
+            
+            <!-- Campo Tratamiento -->
+            <div class="campo">
+                <label t:type="label" for="tratamiento">${message:tratamiento-label}</label>
+                <span class="entrada">
+                    <textarea t:id="tratamiento" t:type="TextArea"
+                           size="300" maxlength="2000"/>
+                </span>
+            </div>
+        
+        
+            <!-- Boton Crear -->
+            <div class="boton">
+                <t:if test="clave">
+                    <input type="submit" t:id="editar" value="${message:editar-button}"/>
+                    <p:else>
+                        <input type="submit" t:id="crear" value="${message:crear-button}"/>
+                    </p:else>
+                </t:if>
+            </div>
+        
+        </div>
+        
+    </form>
+    
+    
+</html>

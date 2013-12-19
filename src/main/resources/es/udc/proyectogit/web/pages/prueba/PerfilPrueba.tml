@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    <!-- Info informe -->
+    <div id="infoDocumentacion">
+        
+        
+        <!-- Campo Tipo Prueba -->
+        <div id="campo">
+            <div class="nombre">${message:tipoPrueba-label}:</div>
+            <div class="valor">${nombrePlantilla}<br/></div>
+        </div>
+        
+        <!-- Campo Codigo Prueba -->
+        <div id="campo">
+            <div class="nombre">${message:codigoPrueba-label}:</div>
+            <div class="valor">${getClave()}<br/></div>
+        </div>
+        
+        <!-- Campo Codigo Informe -->
+        <div id="campo">
+            <div class="nombre">${message:codigoInforme-label}:</div>
+            <div class="valor">
+                <a t:type="EventLink" t:event="linkInforme">${informe.clave}<br/></a>
+            </div>
+        </div><br/>
+        
+        <!-- Campo Paciente -->
+        <div id="campo">
+            <div class="nombre">${message:paciente-label}:</div>
+            <div class="valor">
+                <a t:type="EventLink" t:event="linkPaciente" t:context="${paciente.clave}">${paciente.nombreCompleto}<br/></a>
+            </div>
+        </div>
+        
+        <!-- Campo Solicitante -->
+        <div id="campo">
+            <div class="nombre">${message:solicitante-label}:</div>
+            <div class="valor">
+                <t:if test="solicitante">
+                    <a t:type="EventLink" t:event="linkMedico" t:context="${solicitante.clave}">${solicitante.nombreCompleto}<br/></a>
+                </t:if>
+            </div>
+        </div>
+        
+        <!-- Campo Medico -->
+        <div id="campo">
+            <div class="nombre">${message:medico-label}:</div>
+            <div class="valor">
+                <t:if test="medico">
+                    <a t:type="EventLink" t:event="linkMedico" t:context="${medico.clave}">${medico.nombreCompleto}<br/></a>
+                </t:if>
+            </div>
+        </div>
+        
+        <!-- Campo Fecha Solicitud -->
+        <div id="campo">
+            <div class="nombre">${message:fechaSolicitud-label}:</div>
+            <div class="valor">${fechaSolicitud}<br/></div>
+        </div>
+        
+        <!-- Campo Fecha Inicio -->
+        <div id="campo">
+            <div class="nombre">${message:fechaInicio-label}:</div>
+            <div class="valor">${fechaInicio}<br/></div>
+        </div>
+        
+        <!-- Campo Fecha Fin -->
+        <div id="campo">
+            <div class="nombre">${message:fechaFin-label}:</div>
+            <div class="valor">${fechaFin}<br/></div>
+        </div>
+        
+    </div>
+    
+    <!-- Menu de documentacion -->
+    <div id="menuDocumentacion">
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:1">
+            <t:if test="opcionInfo">
+                <div class="opcionElegida">
+                    ${message:infoPrueba-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:infoPrueba-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+        
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:2">
+            <t:if test="opcionValores">
+                <div class="opcionElegida">
+                    ${message:infoValores-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:infoValores-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+        
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:3">
+            <t:if test="opcionImagenes">
+                <div class="opcionElegida">
+                    ${message:infoImagenes-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:infoImagenes-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+    </div>
+    
+    
+    <!-- Documentacion -->
+    <div id="contenidoDocumentacion">
+        
+        
+        <t:if test="opcionInfo">
+            
+            <!-- Campo Observaciones Solicitante -->
+            <div id="campo">
+                <div class="nombre">${message:observacionesSolicitante-label}</div>
+                <div class="valor">${observacionesSolicitante}<br/></div>
+            </div>
+            
+            <!-- Campo Observaciones -->
+            <div id="campo">
+                <div class="nombre">${message:observaciones-label}</div>
+                <div class="valor">${observaciones}<br/></div>
+            </div>
+            
+        </t:if>
+        
+        
+        <t:if test="opcionValores">
+        
+            <div id="tabla">
+                <table t:type="Grid" t:source="valores" t:row="valor" t:model="modelo" t:empty="${message:tablaValores-vacia}"
+                       t:mixins="RowEvent" t:event="rowClicked">
+                    <p:tipoCell>
+                        ${getNombreValor(valor.clave)}
+                    </p:tipoCell>
+                    <p:unidadesCell>
+                        ${getUnidadesValor(valor.clave)}
+                    </p:unidadesCell>
+                </table>
+            </div>
+            
+        </t:if>
+        
+        
+        <t:if test="opcionImagenes">
+            
+            <t:if test="${imagenAgregable()}">
+                <div id="menuAdministrador">
+                    <a t:type="EventLink" t:event="linkAgregarImagen">
+                        <div class="opcion">
+                            ${message:agregarImagen-link}
+                        </div>
+                    </a>
+                </div>
+            </t:if>
+            
+            <tr t:type="Loop" t:source="imagenes" t:value="imagen">
+                <td>
+                    <div id="imagen">
+                        <a t:type="eventlink" t:event="paginaImagen" t:context="${imagen.imagenUrl}">
+                            <img src="${getImagen(imagen.imagenUrl)}" alt="image"/>
+                        </a>
+                        <t:if test="${imagenAgregable()}">
+                            <a t:type="eventlink" t:event="eliminarImagen" t:context="${imagen.clave}">
+                                <div class="enlace">
+                                    <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarImagen-link}"/>
+                                </div>
+                            </a>
+                        </t:if>
+                    </div>
+                </td>
+            </tr>
+            
+        </t:if>
+        
+        
+        <!-- Botones -->
+        <div class="button">
+            <t:if test="esEditable()">
+                <a t:type="ActionLink" t:id="editar">${message:editar-button}</a>
+            </t:if>
+            <t:if test="esFinalizable()">
+                <a t:type="ActionLink" t:id="Finalizar">${message:finalizar-button}</a>
+            </t:if>
+        </div>
+        
+    </div>
+    
+    
+</html>

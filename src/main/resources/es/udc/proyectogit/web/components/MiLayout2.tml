@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      xml:space="preserve">
+
+    
+    <head>
+        <!-- Título de la página -->
+        <title>${titulo}</title>
+        <!-- Carga del icono que aparecerá en el título. -->
+        <link rel="shortcut icon" href="${context:/layout/Titulo.ico}"/>
+        <!-- Carga del archivo CSS -->
+        <link rel="StyleSheet" href="${context:/layout/estilos.css}" type="text/css" media="all"/>
+    </head>
+    
+    
+    
+    <!--**************  Cuerpo de la página  *************-->
+    
+    <body>
+        
+        
+        <!-- Ventana -->
+        <div id="ventana">          
+            
+            <div id ="parteInmovil">
+                <!-- Cabecera -->
+                <t:partes.Cabecera/>
+            
+                <!-- Menu Principal -->
+                <t:partes.MenuPrincipal/>
+            </div>
+            
+            <div id="parteMovil">
+                <!-- Contenido -->
+                <div id="contenido">
+                    <t:body/>
+                </div>
+            
+                <!-- Menu Principal -->
+                <t:partes.PiePagina/>
+            </div>
+            
+        </div>
+        
+        
+    </body>
+    
+    
+</html>

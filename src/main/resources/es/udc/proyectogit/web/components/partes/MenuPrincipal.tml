@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      xml:space="preserve">
+    
+    <t:content>
+        
+        <t:delegate to="menuPrincipal"/>
+        
+        
+        <!-- Menu de administrador -->
+        <t:block t:id="menuAdministrador">
+            <div id="menuPrincipal">
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="administrador/Administradores">${message:administradores-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="departamento/Departamentos">${message:departamentos-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="medico/Medicos">${message:medicos-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="paciente/Pacientes">${message:pacientes-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="parametro/Parametros">${message:paramentros-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="plantilla/Plantillas">${message:plantillas-link}</a>
+                </div>
+            </div>
+        </t:block>
+        
+        
+        
+        <!-- Menu de medico -->
+        <t:block t:id="menuMedico">
+            <div id="menuPrincipal">
+                <t:if test="esSupervisor()">
+                    <div class="opcion">
+                        <a t:type="PageLink" t:page="departamento/SupervisionDepartamento">${message:departamento-link}</a>
+                    </div>
+                </t:if>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="paciente/Pacientes">${message:pacientes-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="informe/Informes">${message:informes-link}</a>
+                </div>
+                <div class="opcion">
+                    <a t:type="PageLink" t:page="prueba/Pruebas">${message:pruebas-link}</a>
+                </div>
+            </div>
+        </t:block>
+        
+        
+    </t:content>
+    
+</html>

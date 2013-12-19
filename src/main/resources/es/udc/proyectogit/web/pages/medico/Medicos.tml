@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    <div id="tituloContenido">
+        ${message:titulo-label}
+    </div>
+    
+    
+    <form t:type="Form" t:id="formularioBusqueda">
+        <!-- Campo DNI -->
+        <div class="campo">
+            <label t:type="label" for="dni">${message:dniBusqueda-label}</label>
+            <span class="entrada">
+                <input t:id="dni" t:type="TextField"
+                       size="9" maxlength="9"/>
+            </span>
+        </div>
+        
+        <!-- Campo Nombre -->
+        <div class="campo">
+            <label t:type="label" for="nombre">${message:nombreBusqueda-label}</label>
+            <span class="entrada">
+                <input t:id="nombre" t:type="TextField"
+                       size="15" maxlength="30"/>
+            </span>
+        </div>
+        
+        <!-- Campo Apellido1 -->
+        <div class="campo">
+            <label t:type="label" for="apellido1">${message:apellido1Busqueda-label}</label>
+            <span class="entrada">
+                <input t:id="apellido1" t:type="TextField"
+                       size="15" maxlength="30"/>
+            </span>
+        </div>
+        
+        <!-- Campo Apellido2 -->
+        <t:if test="${mostrarSegundoApellido()}">
+            <div class="campo">
+                <label t:type="label" for="apellido2">${message:apellido2Busqueda-label}</label>
+                <span class="entrada">
+                    <input t:id="apellido2" t:type="TextField"
+                           size="15" maxlength="30"/>
+                </span>
+            </div>
+        </t:if>
+        
+        <!-- Campo Departamento -->
+        <div class="campo">
+            <label t:type="label" for="departamentoBusqueda">${message:departamentoBusqueda-label}</label>
+            <span class="entrada">
+                <select t:type="select" t:id="departamentoBusqueda"
+                        model="modeloDepartamento" encoder="encoderDepartamento"/>
+            </span>
+        </div>
+        
+        
+        <!-- Boton Buscar -->
+        <div class="boton">
+            <input type="submit" value="${message:buscar-button}"/>
+        </div>
+    </form>
+    
+    
+    <div id="menuAdministrador">
+        <a t:type="PageLink" t:page="medico/CrearMedico">
+        <div class="opcion">
+            ${message:agregar-link}
+        </div>
+        </a>
+    </div>
+    
+    
+    <div id="tabla">
+        <table t:type="Grid" t:source="medicos" t:row="medico" t:model="modelo" t:empty="${message:tabla-vacia}"
+               t:mixins="RowEvent" t:event="rowClicked" t:rowsPerPage="20">
+            <p:dniCell>
+                ${medico.dni.toString()}
+            </p:dniCell>
+            <p:departamentoCell>
+                ${getDepartamento(medico.clave)}
+            </p:departamentoCell>
+        </table>
+    </div>
+    
+    
+</html>

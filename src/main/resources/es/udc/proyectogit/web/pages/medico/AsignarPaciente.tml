@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+    
+    
+        <div id="formularioStyle">
+        
+            <div class="titulo">
+                ${message:titulo-label}
+            </div>
+        
+        
+            <!-- Campo Paciente -->
+            <div id="campo">
+                <div class="nombre">${message:paciente-label}</div>
+                <span class="entrada">${paciente}<br/></span>
+            </div>
+        
+        
+            <!--Campo Medico-->
+            <div class="campo">
+                <t:label for="medico">${message:medico-label}</t:label>
+                <span class="entrada">
+                    <select t:type="select" t:id="medico"
+                            model="modeloMedico" encoder="encoderMedico"/>
+                </span>
+            </div>
+        
+        
+            <!-- Botones -->
+            <div class="boton">
+                <input type="submit" value="${message:asignar-button}"/>
+            </div>
+        
+        
+        </div>
+        
+    </form>
+    
+    
+</html>

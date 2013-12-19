@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xml:space="preserve"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo">
+    
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+        
+        <div id="formularioStyle">
+            
+            <div class="titulo">
+                <t:if test="clave">
+                    ${message:editar-titulo}
+                    <p:else>
+                        ${message:crear-titulo}
+                    </p:else>
+                </t:if>
+            </div>
+        
+            <!-- Campo Dni -->
+            <div class="campo">
+                <label t:type="label" for="dni">${message:dni-label}</label>
+                <span class="entrada">
+                    <input t:id="dni" t:type="TextField"
+                           t:validate="required, regexp"
+                           size="10" maxlength="9"/>
+                </span>
+            </div>
+        
+            <!-- Campo Nombre -->
+            <div class="campo">
+                <label t:type="label" for="nombre">${message:nombre-label}</label>
+                <span class="entrada">
+                    <input t:id="nombre" t:type="TextField"
+                           t:validate="required, regexp"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        
+            <!-- Campo Apellido1 -->
+            <div class="campo">
+                <label t:type="label" for="apellido1">${message:apellido1-label}</label>
+                <span class="entrada">
+                    <input t:id="apellido1" t:type="TextField"
+                           t:validate="required, regexp"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        
+            <!-- Campo Apellido2 -->
+            <t:if test="${mostrarSegundoApellido()}">
+                <div class="campo">
+                    <label t:type="label" for="apellido2">${message:apellido2-label}</label>
+                    <span class="entrada">
+                        <input t:id="apellido2" t:type="TextField"
+                               t:validate="regexp"
+                               size="20" maxlength="30"/>
+                    </span>
+                </div>
+            </t:if>
+        
+            <!-- Campo Fecha Nacimiento -->
+            <div class="campo">
+                <t:label for="dia">${message:fechaNacimiento-label}</t:label>
+                <span class="entrada">
+                    <select t:type="select" t:id="dia" model="dias"
+                            t:blankLabel="${message:dia-blankLabel}"/>
+                    <select t:type="select" t:id="mes"
+                            t:blankLabel="${message:mes-blankLabel}"/>
+                    <select t:type="select" t:id="anho" model="anhos"
+                            t:blankLabel="${message:anho-blankLabel}"/>
+                </span>
+            </div>
+        
+            <!-- Campo Telefono -->
+            <div class="campo">
+                <t:label for="telefono">${message:telefono-label}</t:label>
+                <span class="entrada">
+                    <input t:id="telefono" t:type="TextField"
+                           t:validate="regexp"
+                           size="10" maxlength="9" />
+                </span>
+            </div>
+        
+            <!-- Campo Direccion -->
+            <div class="campo">
+                <t:label for="calle">${message:direccion-label}</t:label>
+                <span class="entrada">
+                    <input t:id="calle" t:type="TextField" placeholder="${message:via-info}"
+                           size="30" maxlength="50" /><br/>
+                    <input t:id="numero" t:type="TextField" placeholder="${message:numero-info}"
+                           t:validate="regexp"
+                           size="5" maxlength="4" />
+                    <input t:id="piso" t:type="TextField" placeholder="${message:piso-info}"
+                           t:validate="regexp"
+                           size="4" maxlength="3" />
+                    <input t:id="letra" t:type="TextField" placeholder="${message:letra-info}"
+                           size="4" maxlength="4" />
+                    <input t:id="codigoPostal" t:type="TextField" placeholder="${message:codigoPostal-info}"
+                           t:validate="regexp"
+                           size="10" maxlength="5" /><br/>
+                    <input t:id="localidad" t:type="TextField" placeholder="${message:localidad-info}"
+                           t:validate="regexp"
+                           size="16" maxlength="30" />
+                    <input t:id="provincia" t:type="TextField" placeholder="${message:provincia-info}"
+                           t:validate="regexp"
+                           size="16" maxlength="30" />
+                </span>
+            </div>
+        
+            <!-- Campo Departamento -->
+            <div class="campo">
+                <t:label for="departamento">${message:departamento-label}</t:label>
+                <span class="entrada">
+                    <t:if test="medSession">
+                        <select t:type="select" t:value="departamento"
+                                model="modeloDepartamento" encoder="encoderDepartamento" disabled="true"/>
+                        <p:else>
+                            <select t:type="select" t:id="departamento"
+                                    model="modeloDepartamento" encoder="encoderDepartamento"/>
+                        </p:else>
+                    </t:if>
+                </span>
+            </div>
+        
+            <!-- Campo Nombre Login -->
+            <t:if test="clave">
+                <div class="campo">
+                    <label t:type="label" for="nombreLogin">${message:nombreLogin-label}</label>
+                    <t:if test="esLogueado()">
+                        <span class="entrada">
+                            <input t:id="nombreLogin" t:type="TextField"
+                                   t:validate="required"
+                                   size="20" maxlength="30"/>
+                        </span>
+                        <p:else>
+                            <span class="boton">
+                                <input t:type="submit" t:id="botonResetLogin" value="${message:resetear-button}"/>
+                            </span>
+                        </p:else>
+                    </t:if>
+                </div>
+            </t:if>
+        
+            <!-- Campo Password -->
+            <t:if test="clave">
+                <div class="campo">
+                    <label t:type="label" for="password">${message:password-label}</label>
+                    <t:if test="esLogueado()">
+                        <span class="entrada">
+                            <input t:id="password" t:type="PasswordField"
+                                   t:validate="minlength=5"
+                                   size="20" maxlength="20"/>
+                        </span>
+                        <p:else>
+                            <span class="boton">
+                                <input t:type="submit" t:id="botonResetPassword" value="${message:resetear-button}"/>
+                            </span>
+                        </p:else>
+                    </t:if>
+                </div>
+            </t:if>
+        
+            <!-- Campo Password 2 -->
+            <t:if test="clave"><t:if test="esLogueado()">
+                <div class="campo">
+                    <label t:type="label" for="password2">${message:password2-label}</label>
+                    <span class="entrada">
+                        <input t:id="password2" t:type="PasswordField"
+                               t:validate="minlength=5"
+                               size="20" maxlength="20"/>
+                    </span>
+                </div>
+            </t:if></t:if>
+        
+        
+            <!-- Boton Crear -->
+            <div class="boton">
+                <t:if test="clave">
+                    <input type="submit" value="${message:editar-button}"/>
+                    <p:else>
+                        <input type="submit" value="${message:crear-button}"/>
+                    </p:else>
+                </t:if>
+            </div>
+        
+        </div>
+        
+    </form>
+    
+    
+</html>

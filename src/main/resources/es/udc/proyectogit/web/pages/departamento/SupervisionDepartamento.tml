@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    
+    <div id="menuMedico">
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:1">
+            <t:if test="pacientes">
+                <div class="opcionElegida">
+                    ${message:pacientes-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:pacientes-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:2">
+            <t:if test="medicos">
+                <div class="opcionElegida">
+                    ${message:medicos-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:medicos-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:3">
+            <t:if test="informes">
+                <div class="opcionElegida">
+                    ${message:informes-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:informes-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+        <a t:type="EventLink" t:event="cambiarOpcion" t:context="literal:4">
+            <t:if test="pruebas">
+                <div class="opcionElegida">
+                    ${message:pruebas-link}
+                </div>
+                <p:else>
+                    <div class="opcion">
+                        ${message:pruebas-link}
+                    </div>
+                </p:else>
+            </t:if>
+        </a>
+    </div>
+    
+    
+    <form t:type="Form" t:id="formularioBusqueda">
+        <t:if test="esBusquedaPorFecha()">
+            <!-- Campo Tipo fecha -->
+            <div class="campo">
+                <t:label for="tipoFechaInforme">${message:tipoFecha-label}:</t:label>
+                <span class="entrada">
+                    <t:if test="${informes}">
+                        <select t:type="select" t:id="tipoFechaInforme"
+                                model="1=${message:fechaInicio-label},2=${message:fechaFin-label}"
+                                t:validate="required"/>
+                    </t:if>
+                    <t:if test="${pruebas}">
+                        <select t:type="select" t:id="tipoFechaPrueba"
+                                model="3=${message:fechaSolicitud-label},1=${message:fechaInicio-label},2=${message:fechaFin-label}"
+                                t:validate="required"/>
+                    </t:if>
+                </span>
+            </div>
+        
+            <!-- Campo Fecha Desde -->
+            <div class="campo">
+                <t:label for="diaDesde">${message:fechaDesde-label}:</t:label>
+                <span class="entrada">
+                    <select t:type="select" t:id="diaDesde" model="dias"
+                            t:blankLabel="${message:dia-blankLabel}"/>
+                    <select t:type="select" t:id="mesDesde"
+                            t:blankLabel="${message:mes-blankLabel}"/>
+                    <select t:type="select" t:id="anhoDesde" model="anhos"
+                            t:blankLabel="${message:anho-blankLabel}"/>
+                </span>
+            </div>
+        
+            <!-- Campo Fecha Hasta -->
+            <div class="campo">
+                <t:label for="diaHasta">${message:fechaHasta-label}:</t:label>
+                <span class="entrada">
+                    <select t:type="select" t:id="diaHasta" model="dias"
+                            t:blankLabel="${message:dia-blankLabel}"/>
+                    <select t:type="select" t:id="mesHasta"
+                            t:blankLabel="${message:mes-blankLabel}"/>
+                    <select t:type="select" t:id="anhoHasta" model="anhos"
+                            t:blankLabel="${message:anho-blankLabel}"/>
+                </span>
+            </div><br/><br/><br/>
+        
+            <div class="campo">
+                <t:radiogroup t:id="visible" t:validate="required">
+                    <t:if test="${informes}">
+                        <input t:type="radio" t:id="todos" value="1" label="${message:todos-label}" onclick="this.form.submit();"/><t:label for="todos"/>
+                        <input t:type="radio" t:id="pendientes" value="2" label="${message:pendientes-label}" onclick="this.form.submit();"/><t:label for="pendientes"/>
+                        <input t:type="radio" t:id="finalizados" value="3" label="${message:finalizados-label}" onclick="this.form.submit();"/><t:label for="finalizados"/>
+                    </t:if>
+                    <t:if test="${pruebas}">
+                        <input t:type="radio" t:id="todas" value="1" label="${message:todas-label}" onclick="this.form.submit();"/><t:label for="todas"/>
+                        <input t:type="radio" t:id="pendientas" value="2" label="${message:pendientes-label}" onclick="this.form.submit();"/><t:label for="pendientas"/>
+                        <input t:type="radio" t:id="finalizadas" value="3" label="${message:finalizadas-label}" onclick="this.form.submit();"/><t:label for="finalizadas"/>
+                    </t:if>
+                </t:radiogroup>
+            </div>
+        </t:if>
+                
+        <t:if test="esBusquedaPorNombre()">
+            <!-- Campo DNI -->
+            <div class="campo">
+                <label t:type="label" for="dniBusqueda">${message:dniBusqueda-label}</label>
+                <span class="entrada">
+                    <input t:id="dniBusqueda" t:type="TextField"
+                           size="10" maxlength="9"/>
+                </span>
+            </div>
+        
+            <!-- Campo Nombre -->
+            <div class="campo">
+                <label t:type="label" for="nombreBusqueda">${message:nombreBusqueda-label}</label>
+                <span class="entrada">
+                    <input t:id="nombreBusqueda" t:type="TextField"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        
+            <!-- Campo Apellido1 -->
+            <div class="campo">
+                <label t:type="label" for="apellido1Busqueda">${message:apellido1Busqueda-label}</label>
+                <span class="entrada">
+                    <input t:id="apellido1Busqueda" t:type="TextField"
+                           size="20" maxlength="30"/>
+                </span>
+            </div>
+        
+            <!-- Campo Apellido2 -->
+            <t:if test="${mostrarSegundoApellido()}">
+                <div class="campo">
+                    <label t:type="label" for="apellido2Busqueda">${message:apellido2Busqueda-label}</label>
+                    <span class="entrada">
+                        <input t:id="apellido2Busqueda" t:type="TextField"
+                               size="20" maxlength="30"/>
+                    </span>
+                </div>
+            </t:if>
+        </t:if>
+        
+        
+        <!-- Boton Buscar -->
+        <div class="boton">
+            <input type="submit" value="${message:buscar-button}"/>
+        </div>
+    </form>
+
+    
+    
+    <div id="tabla">
+        <t:if test="pacientes">
+            <table t:type="Grid" t:source="lista" t:row="paciente" t:model="modeloPaciente" t:empty="${message:tablaPacientes-vacia}"
+                   t:mixins="RowEvent" t:event="rowClicked" t:rowsPerPage="20">
+                <p:dniCell>
+                    ${paciente.dni.toString()}
+                </p:dniCell>
+                <p:medicoCell>
+                    <a t:type="EventLink" t:event="linkMedico" t:context="${getMedicoPaciente(paciente.clave).clave}">
+                        ${getMedicoPaciente(paciente.clave).nombreCompleto}
+                    </a>
+                </p:medicoCell>
+            </table>
+        </t:if>
+    
+    
+        <t:if test="medicos">
+            <table t:type="Grid" t:source="lista" t:row="medico" t:model="modeloMedico" t:empty="${message:tablaMedicos-vacia}"
+                   t:mixins="RowEvent" t:event="rowClicked" t:rowsPerPage="20">
+                <p:dniCell>
+                    ${medico.dni.toString()}
+                </p:dniCell>
+            </table>
+        </t:if>
+    
+    
+        <t:if test="${informes}">
+            <table t:type="Grid" t:source="lista" t:row="informe" t:model="modeloInforme" t:empty="${message:tablaInformes-vacia}"
+                   t:mixins="RowEvent" t:event="rowClicked" t:rowsPerPage="20">
+                <p:fechaInicioCell>
+                    ${formatoFecha.formatearFecha(informe.fechaInicio)}
+                </p:fechaInicioCell>
+                <p:fechaFinCell>
+                    ${formatoFecha.formatearFecha(informe.fechaFin)}
+                </p:fechaFinCell>
+                <p:pacienteCell>
+                    <a t:type="EventLink" t:event="linkPaciente" t:context="${getPacienteInforme(informe.clave).clave}">
+                        ${getPacienteInforme(informe.clave).nombreCompleto}
+                    </a>
+                </p:pacienteCell>
+                <p:medicoCell>
+                    <a t:type="EventLink" t:event="linkMedico" t:context="${getMedicoInforme(informe.clave).clave}">
+                        ${getMedicoInforme(informe.clave).nombreCompleto}
+                    </a>
+                </p:medicoCell>
+                <p:accionesCell>
+                    <div id="acciones">
+                    <t:if test="${informeEliminable(informe.clave)}">
+                        <div id="accion">
+                            <a t:type="EventLink" t:event="eliminarInforme" t:context="informe.clave">
+                                <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarInforme-link}"/>
+                            </a>
+                        </div>
+                    </t:if>
+                    </div>
+                </p:accionesCell>
+            </table>
+        </t:if>
+    
+    
+        <t:if test="${pruebas}">
+            <table t:type="Grid" t:source="lista" t:row="prueba" t:model="modeloPrueba" t:empty="${message:tablaPruebas-vacia}"
+                   t:mixins="RowEvent" t:event="rowClicked" t:rowsPerPage="20">
+                <p:fechaSolicitudCell>
+                    ${formatoFecha.formatearFecha(prueba.fechaSolicitud)}
+                </p:fechaSolicitudCell>
+                <p:fechaInicioCell>
+                    ${formatoFecha.formatearFecha(prueba.fechaInicio)}
+                </p:fechaInicioCell>
+                <p:fechaFinCell>
+                    ${formatoFecha.formatearFecha(prueba.fechaFin)}
+                </p:fechaFinCell>
+                <p:tipoCell>
+                    ${getNombrePlantilla(prueba.clave)}
+                </p:tipoCell>
+                <p:pacienteCell>
+                    <a t:type="EventLink" t:event="linkPaciente" t:context="${getPacientePrueba(prueba.clave).clave}">
+                        ${getPacientePrueba(prueba.clave).nombreCompleto}
+                    </a>
+                </p:pacienteCell>
+                <p:medicoCell>
+                    <t:if test="${getMedicoPrueba(prueba.clave)}">
+                        <a t:type="EventLink" t:event="linkMedico" t:context="${getMedicoPrueba(prueba.clave).clave}">
+                            ${getMedicoPrueba(prueba.clave).nombreCompleto}
+                        </a>
+                    </t:if>
+                </p:medicoCell>
+                <p:solicitanteCell>
+                    <a t:type="EventLink" t:event="linkMedico" t:context="${getSolicitantePrueba(prueba.clave).clave}">
+                        ${getSolicitantePrueba(prueba.clave).nombreCompleto}
+                    </a>
+                </p:solicitanteCell>
+                <p:accionesCell>
+                    <div id="acciones">
+                    <t:if test="${pruebaAsignable(prueba.clave)}">
+                        <t:if test="${esAdministrador()}">
+                            <div id="accion">
+                                <a t:type="EventLink" t:event="asignarPrueba" t:context="prueba.clave">
+                                    <img src="${context:/imagenes/Asignar.png}" title="${message:asignarPrueba-link}"/>
+                                </a>
+                            </div>
+                        </t:if>
+                        <div id="accion">
+                            <a t:type="EventLink" t:event="agregarPrueba" t:context="prueba.clave">
+                                <img src="${context:/imagenes/Anhadir.png}" title="${message:agregarPrueba-link}"/>
+                            </a>
+                        </div>
+                    </t:if>
+                    <t:if test="${pruebaDesvinculable(prueba.clave)}">
+                        <div id="accion">
+                            <a t:type="EventLink" t:event="desvincularPrueba" t:context="prueba.clave">
+                                <img src="${context:/imagenes/Desvincular.png}" title="${message:desvincularPrueba-link}"/>
+                            </a>
+                        </div>
+                    </t:if>
+                    <t:if test="${pruebaEliminable(prueba.clave)}">
+                        <div id="accion">
+                            <a t:type="EventLink" t:event="eliminarPrueba" t:context="prueba.clave">
+                                <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarPrueba-link}"/>
+                            </a>
+                        </div>
+                    </t:if>
+                    </div>
+                </p:accionesCell>
+            </table>
+        </t:if>
+    
+    </div>
+    
+    
+</html>

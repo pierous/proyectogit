@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="es.udc.proyectogit.modelo.informe.Informe" table="informes">
+        
+        <!--Clave-->
+        <id name="clave" column="informeID">
+            <generator class="increment"/>
+        </id>
+        
+        <!--FechaInicio-->
+        <property name="fechaInicio" column="fechaInicio"/>
+        
+        <!--FechaFin-->
+        <property name="fechaFin" column="fechaFin"/>
+        
+        <!--ObservacionesPrevias-->
+        <property name="observacionesPrevias" column="observacionesPrevias" type="text"/>
+        
+        <!--Diagnostico-->
+        <property name="diagnostico" column="diagnostico" type="text"/>
+        
+        <!--Tratamiento-->
+        <property name="tratamiento" column="tratamiento" type="text"/>
+        
+        <!--Paciente-->
+        <many-to-one name="paciente" column="pacienteID"/>
+        
+        <!--Medico-->
+        <many-to-one name="medico" column="medicoID"/>
+        
+        <!--Pruebas-->
+        <set name="pruebas" inverse="true" cascade="delete">
+            <key column="informeID"/>
+            <one-to-many class="es.udc.proyectogit.modelo.prueba.Prueba"/>
+        </set>
+        
+    </class>
+</hibernate-mapping>

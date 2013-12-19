@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="es.udc.proyectogit.modelo.administrador.Administrador" table="administradores">
+        
+        <!--Clave-->
+        <id name="clave" column="administradorID">
+            <generator class="increment"/>
+        </id>
+        
+        <!--nombreLogin-->
+        <property name="nombreLogin" column="nombreLogin"/>
+        
+        <!--Dni-->
+        <component name="dni" class="es.udc.proyectogit.modelo.utiles.dni.Dni">
+            <property name="dni" column="dni"/>
+        </component>
+        
+        <!--Nombre-->
+        <property name="nombre" column="nombre"/>
+        
+        <!--Apellido1-->
+        <property name="apellido1" column="ap1"/>
+        
+        <!--Apellido2-->
+        <property name="apellido2" column="ap2"/>
+        
+        <!--PasswordEncriptado-->
+        <property name="passwordEncriptado" column="password"/>
+        
+    </class>
+</hibernate-mapping>

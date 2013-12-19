@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+        
+        <div id="formularioStyle">
+        
+            <div class="titulo">
+                ${message:titulo-label}
+            </div>
+            
+            
+                <input t:type="Upload" t:value="imagen" validate="required"/>
+            
+            <br/>
+            
+            <div class="boton">
+                <input type="Submit" value="${message:agregarImagen-button}"/>
+            </div>
+        </div>
+        
+    </form>
+    
+    
+</html>

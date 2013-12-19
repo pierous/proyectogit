@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xml:space="preserve"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo">
+    
+    
+    <form t:type="Form" t:id="formulario">
+        <t:errors/>
+        
+        <div id="formularioStyle">
+            
+            <div class="titulo">
+                <t:if test="clave">
+                    ${message:editar-titulo}
+                    <p:else>
+                        ${message:crear-titulo}
+                    </p:else>
+                </t:if>
+            </div>
+        
+            <!-- Campo Observaciones Solicitante -->
+            <div class="campo">
+                <label t:type="label" for="observacionesSolicitante">${message:observacionesSolicitante-label}</label>
+                <span class="entrada">
+                    <t:if test="clave">
+                        ${observacionesSolicitante}
+                        <p:else>
+                            <textarea t:id="observacionesSolicitante" t:type="TextArea"
+                                   t:validate="required"
+                                   size="300" maxlength="2000"/>
+                        </p:else>
+                    </t:if>
+                </span>
+            </div>
+            
+            <!--Campo plantilla-->
+            <div class="campo">
+                <t:label for="plantilla">${message:plantilla-label}</t:label>
+                <span class="entrada">
+                    <t:if test="clave">
+                        ${plantilla.nombre}
+                        <p:else>
+                            <select t:type="select" t:id="plantilla"
+                                    t:validate="required"
+                                    model="modeloPlantilla" encoder="encoderPlantilla"/>
+                        </p:else>
+                    </t:if>
+                </span>
+            </div>
+            
+            <t:if test="clave">
+                <!-- Campo Observaciones -->
+                <div class="campo">
+                    <label t:type="label" for="observaciones">${message:observaciones-label}</label>
+                    <span class="entrada">
+                        <textarea t:id="observaciones" t:type="TextArea"
+                               size="300" maxlength="2000"/>
+                    </span>
+                </div>
+                
+                <!-- Campo Valores -->
+                <div class="campo">
+                    <label t:type="label" for="valorVacio">${message:valores-label}</label>
+                    <input t:id="valorVacio" t:type="TextField" type="hidden"/> 
+                    <span class="entrada">
+                        <table t:type="Grid" t:source="valores" t:row="valor" t:model="modeloValor" t:empty="${message:tablaPruebas-vacia}">
+                            <p:tipoCell>
+                                ${getNombreValor(valor.clave)}
+                            </p:tipoCell>
+                            <p:datoCell>
+                                <t:hidden value="valor.clave"/>
+                                <input t:type="TextField" t:value="valor.dato" t:validate="maxlength=5" size="5"/>
+                            </p:datoCell>
+                            <p:unidadesCell>
+                                ${getUnidadesValor(valor.clave)}
+                            </p:unidadesCell>
+                        </table>
+                    </span>
+                </div>
+            </t:if>
+        
+        
+            <!-- Boton Crear -->
+            <div class="boton">
+                <t:if test="clave">
+                    <input type="submit" t:id="editar" value="${message:editar-button}"/>
+                    <p:else>
+                        <input type="submit" t:id="crear" value="${message:crear-button}"/>
+                    </p:else>
+                </t:if>
+            </div>
+        
+        </div>
+        
+    </form>
+    
+    
+</html>

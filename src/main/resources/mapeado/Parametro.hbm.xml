@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="es.udc.proyectogit.modelo.parametro.Parametro" table="parametros">
+        
+        <!--Clave-->
+        <id name="clave" column="parametroID">
+            <generator class="increment"/>
+        </id>
+        
+        <!--Nombre-->
+        <property name="nombre" column="nombre"/>
+        
+        <!--Unidad-->
+        <property name="unidad" column="unidad"/>
+        
+        <!--Unidad abreviada-->
+        <property name="unidadAbreviada" column="unidadAbr"/>
+        
+    </class>
+</hibernate-mapping>

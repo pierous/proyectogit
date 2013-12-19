@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter"
+      t:type="MiLayout2"
+      t:titulo="titulo"
+      xml:space="preserve">
+    
+    
+    <div id="tituloContenido">
+        ${message:titulo-label}
+    </div>
+    
+    
+    <div id="perfil">
+        
+        <!-- Campo Nombre -->
+        <div id="campo">
+            <div class="nombre">${message:nombre-label}</div>
+            <div class="valor">${nombre}<br/></div>
+        </div>
+        
+        <!-- Campo Supervisor -->
+        <div id="campo">
+            <div class="nombre">${message:supervisor-label}</div>
+            <div class="valor">${supervisor}<br/></div>
+        </div>
+        
+        
+        <!-- Botones -->
+        <div class="button">
+            <a t:type="ActionLink" t:id="editar">${message:editar-button}</a>
+            <a t:type="ActionLink" t:id="eliminar">${message:eliminar-button}</a>
+        </div>
+        
+        
+    </div>
+    
+    
+</html>
