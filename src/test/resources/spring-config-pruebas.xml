@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    
+    <!-- Enable usage of @Autowired. -->
+    <context:annotation-config/>
+
+
+    <!-- Enable component scanning for defining beans with annotations. -->
+    <context:component-scan base-package="es.udc.proyectogit"/>
+    
+    
+    <!-- Cargamos aquí el archivo de configuración jdbc.properties -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:baseDatos.properties"/>
+    </bean>
+    
+    
+    <!-- Aqui configuramos hibernate -->
+    <!-- Conexión a base de datos -->
+    <bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"    value="${baseDatos.driverClassName}"/>
+        <property name="url"                value="${baseDatos.urltest}"/>
+        <property name="username"           value="${baseDatos.username}"/>
+        <property name="password"           value="${baseDatos.password}"/>
+    </bean>
+
+    <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory"  class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource"><ref local="dataSourceProxy" /></property>
+        <!-- Referencias a los archivos de mapeado de cada clase -->
+        <property name="mappingResources"><list>
+            <value>mapeado/Departamento.hbm.xml</value>
+            <value>mapeado/Informe.hbm.xml</value>
+            <value>mapeado/Medico.hbm.xml</value>
+            <value>mapeado/Paciente.hbm.xml</value>
+            <value>mapeado/Parametro.hbm.xml</value>
+            <value>mapeado/Plantilla.hbm.xml</value>
+            <value>mapeado/Prueba.hbm.xml</value>
+            <value>mapeado/Valor.hbm.xml</value>
+            <value>mapeado/Administrador.hbm.xml</value>
+            <value>mapeado/Imagen.hbm.xml</value>
+            <!--value>mapeado/Departamento.hbm.xml</value-->
+        </list></property>
+        <property name="hibernateProperties"> <props>
+            <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.autotest}</prop>
+            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            <prop key="hibernate.connection.pool_size">${hibernate.connection.pool_size}</prop>
+            <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+        </props> </property>
+    </bean>
+    
+    
+    <!-- Transaction manager for a single Hibernate SessionFactory. -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    
+    <!-- Enable the configuration of transactional behavior based on annotations. -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+
+    <!-- Daos de las entidades -->
+    <bean id="departamentoDao"  class="es.udc.proyectogit.modelo.departamento.DepartamentoDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="informeDao"  class="es.udc.proyectogit.modelo.informe.InformeDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="medicoDao"  class="es.udc.proyectogit.modelo.medico.MedicoDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="pacienteDao"  class="es.udc.proyectogit.modelo.paciente.PacienteDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="parametroDao"  class="es.udc.proyectogit.modelo.parametro.ParametroDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="plantillaDao"  class="es.udc.proyectogit.modelo.plantilla.PlantillaDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="pruebaDao"  class="es.udc.proyectogit.modelo.prueba.PruebaDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="valorDao"  class="es.udc.proyectogit.modelo.valor.ValorDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="administradorDao"  class="es.udc.proyectogit.modelo.administrador.AdministradorDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="imagenDao"  class="es.udc.proyectogit.modelo.imagen.ImagenDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    
+    <!-- Servicios -->
+    <bean id="departamentoServicio" class="es.udc.proyectogit.modelo.departamentoservicio.DepartamentoServicioImpl">
+        <property name="departamentoDao" ref="departamentoDao"/>
+    </bean>
+    
+    <bean id="informeServicio" class="es.udc.proyectogit.modelo.informeservicio.InformeServicioImpl">
+        <property name="informeDao" ref="informeDao"/>
+    </bean>
+    
+    <bean id="medicoServicio" class="es.udc.proyectogit.modelo.medicoservicio.MedicoServicioImpl">
+        <property name="medicoDao" ref="medicoDao"/>
+    </bean>
+    
+    <bean id="pacienteServicio" class="es.udc.proyectogit.modelo.pacienteservicio.PacienteServicioImpl">
+        <property name="pacienteDao" ref="pacienteDao"/>
+    </bean>
+    
+    <bean id="parametroServicio" class="es.udc.proyectogit.modelo.parametroservicio.ParametroServicioImpl">
+        <property name="parametroDao" ref="parametroDao"/>
+    </bean>
+    
+    <bean id="plantillaServicio" class="es.udc.proyectogit.modelo.plantillaservicio.PlantillaServicioImpl">
+        <property name="plantillaDao" ref="plantillaDao"/>
+    </bean>
+    
+    <bean id="pruebaServicio" class="es.udc.proyectogit.modelo.pruebaservicio.PruebaServicioImpl">
+        <property name="pruebaDao" ref="pruebaDao"/>
+    </bean>
+    
+    <bean id="valorServicio" class="es.udc.proyectogit.modelo.valorservicio.ValorServicioImpl">
+        <property name="valorDao" ref="valorDao"/>
+    </bean>
+    
+    <bean id="imagenServicio" class="es.udc.proyectogit.modelo.imagenservicio.ImagenServicioImpl">
+        <property name="imagenDao" ref="imagenDao"/>
+    </bean>
+    
+    
+</beans>
