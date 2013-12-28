@@ -139,7 +139,6 @@ public class CrearAdministrador {
         try {
             if (clave != null) {
                 Administrador administrador = administradorServicio.buscar(clave);
-                nombreLogin = administrador.getNombreLogin();
                 administradorServicio.modificarAdministrador(clave, dni, nombre, apellido1, apellido2, nombreLogin, password, password2);
             }//fin if (clave != null)
             

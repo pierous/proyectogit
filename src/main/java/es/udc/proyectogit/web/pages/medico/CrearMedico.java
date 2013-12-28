@@ -229,7 +229,6 @@ public class CrearMedico {
             
             if (clave != null) {
                 Medico medico = medicoServicio.buscar(clave);
-                nombreLogin = medico.getNombreLogin();
                 medicoServicio.modificarMedico(clave, dni, nombre, apellido1, apellido2, fecha, telefono, direccion, nombreLogin, password, password2);
             }//fin if (clave != null)
             
