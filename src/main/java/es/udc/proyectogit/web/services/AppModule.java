@@ -20,7 +20,9 @@ public class AppModule
     {
         /* Bind filters. */
         binder.bind(SessionDispatcher.class).withId("SessionDispatcher");
-        binder.bind(AuthenticationDispatcher.class).withId("AuthenticationDispatcher");
+//        binder.bind(AuthenticationDispatcher.class).withId("AuthenticationDispatcher");
+        binder.bind(PageRenderAuthenticationFilter.class);
+	binder.bind(ComponentEventAuthenticationFilter.class);
         binder.bind(SupportedLanguages.class);
     }
 
@@ -112,18 +114,68 @@ public class AppModule
     }
     
     
+    /**
+	 * Contribute our {@link ComponentClassTransformWorker} to transformation
+	 * pipeline to add our code to loaded classes
+	 * 
+	 * @param configuration
+	 *            component class transformer configuration
+	 */
+	public static void contributeComponentClassTransformWorker(
+			OrderedConfiguration<ComponentClassTransformWorker> configuration) {
+
+		configuration.add("AuthenticationPolicy",
+				new AuthenticationPolicyWorker());
+
+	}
+    
+    
     public static void contributeMasterDispatcher(OrderedConfiguration<Dispatcher> configuration,
 		@InjectService("SessionDispatcher")
-		Dispatcher sessionDispatcher,
-		@InjectService("AuthenticationDispatcher")
-		Dispatcher authenticationDispatcher) {
+		Dispatcher sessionDispatcher) { //,
+//		@InjectService("AuthenticationDispatcher")
+//		Dispatcher authenticationDispatcher) {
         
         
         /* Add dispatchers to the master Dispatcher service. */
         configuration.add("SessionDispatcher", sessionDispatcher, "before:AuthenticationDispatcher");
         //configuration.add("AuthenticationDispatcher", authenticationDispatcher, "before:PageRender");
-        configuration.addInstance("AuthenticationDispatcher",AuthenticationDispatcher.class, "after:ComponentEvent", "before:PageRender");
     }//fin contributeMasterDispatcher
+    
+    
+    /**
+	 * Contributes "PageRenderAuthenticationFilter" filter which checks for
+	 * access rights of requests.
+	 */
+	public void contributePageRenderRequestHandler(
+			OrderedConfiguration<PageRenderRequestFilter> configuration,
+			PageRenderRequestFilter pageRenderAuthenticationFilter) {
+
+		/*
+		 * Add filters to the filters pipeline of the PageRender command of the
+		 * MasterDispatcher service.
+		 */
+		configuration.add("PageRenderAuthenticationFilter",
+				pageRenderAuthenticationFilter, "before:*");
+
+	}
+
+	/**
+	 * Contribute "PageRenderAuthenticationFilter" filter to determine if the
+	 * event can be processed and the user has enough rights to do so.
+	 */
+	public void contributeComponentEventRequestHandler(
+			OrderedConfiguration<ComponentEventRequestFilter> configuration,
+			ComponentEventRequestFilter componentEventAuthenticationFilter) {
+
+		/*
+		 * Add filters to the filters pipeline of the ComponentEvent command of
+		 * the MasterDispatcher service.
+		 */
+		configuration.add("ComponentEventAuthenticationFilter",
+				componentEventAuthenticationFilter, "before:*");
+
+	}
     
     
 }//fin Clase AppModule
