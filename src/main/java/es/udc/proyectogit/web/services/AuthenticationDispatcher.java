@@ -8,9 +8,12 @@ import org.apache.tapestry5.services.*;
 
 public class AuthenticationDispatcher implements Dispatcher {
 	
-	private final static String LOGIN_PAGE_ADMIN = "../administrador/LoginAdmin";
-        private final static String LOGIN_PAGE_MED = "../medico/LoginMedico";
+	private final static String LOGIN_PAGE_ADMIN = "../Login/1";
+        private final static String LOGIN_PAGE_MED = "../Login/0";
 	private final static String INIT_PAGE = "Index";
+        
+//        @Inject
+//        private PersistentLocale persistentLocale;
 
 	private ApplicationStateManager applicationStateManager;
 	private ComponentClassResolver componentClassResolver;
@@ -23,16 +26,13 @@ public class AuthenticationDispatcher implements Dispatcher {
 		this.applicationStateManager = applicationStateManager;
 		this.componentClassResolver = componentClassResolver;
 		this.componentSource = componentSource;
-		
 	}
 
-	public boolean dispatch(Request request, Response response)
-		throws IOException {
-		
+	public boolean dispatch(Request request, Response response) throws IOException {
+            
 		Component page = componentSource.getPage(getPageName(request));
-		AuthenticationPolicy policy =
-			page.getClass().getAnnotation(AuthenticationPolicy.class);
-		
+		AuthenticationPolicy policy = page.getClass().getAnnotation(AuthenticationPolicy.class);
+
 		if (policy == null) {
 			return false;
 		}
