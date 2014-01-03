@@ -16,7 +16,10 @@
                     ${adminSession.nombre}
                 </a>
                 <a t:type="ActionLink" t:id="logoutAdmin">
-                    <img src="${context:/imagenes/Logout.png}" title="${message:cabecera-logout}"/>
+                    <img src="${context:/imagenes/Grey-Logout.png}"
+                         onmouseover="this.src='${context:/imagenes/Black-Logout.png}'"
+                         onmouseout="this.src='${context:/imagenes/Grey-Logout.png}'"
+                         title="${message:cabecera-logout}"/>
                 </a>
                 <p:else>
                     <t:if test="medSession">
@@ -24,7 +27,10 @@
                             ${medSession.nombre}
                         </a>
                         <a t:type="ActionLink" t:id="logoutMed" >
-                            <img src="${context:/imagenes/Logout.png}" title="${message:cabecera-logout}"/>
+                            <img src="${context:/imagenes/Grey-Logout.png}"
+                                 onmouseover="this.src='${context:/imagenes/Black-Logout.png}'"
+                                 onmouseout="this.src='${context:/imagenes/Grey-Logout.png}'"
+                                 title="${message:cabecera-logout}"/>
                         </a>
                         <p:else>
                             <a t:type="PageLink" t:page="Login">

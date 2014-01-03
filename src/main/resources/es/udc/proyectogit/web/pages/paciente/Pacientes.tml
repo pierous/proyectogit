@@ -121,7 +121,10 @@
                     <t:if test="${esDesvinculable(paciente.clave)}">
                         <div id="accion">
                             <a t:type="ActionLink" t:id="quitarMedico" t:context="paciente.clave">
-                                <img src="${context:/imagenes/Desvincular.png}" title="${message:desvincular-button}"/>
+                                <img src="${context:/imagenes/Grey-Remove.png}"
+                                     onmouseover="this.src='${context:/imagenes/Black-Remove.png}'"
+                                     onmouseout="this.src='${context:/imagenes/Grey-Remove.png}'"
+                                     title="${message:desvincular-button}"/>
                             </a>
                         </div>
                     </t:if>
@@ -129,13 +132,19 @@
                         <t:if test="${esAdministrador()}">
                             <div id="accion">
                                 <a t:type="PageLink" t:page="medico/AsignarPaciente" t:context="paciente.clave">
-                                    <img src="${context:/imagenes/Asignar.png}" title="${message:asignar-button}"/>
+                                    <img src="${context:/imagenes/Grey-Paperclip.png}"
+                                         onmouseover="this.src='${context:/imagenes/Black-Paperclip.png}'"
+                                         onmouseout="this.src='${context:/imagenes/Grey-Paperclip.png}'"
+                                         title="${message:asignar-button}"/>
                                 </a>
                             </div>
                         </t:if>
                         <div id="accion">
                             <a t:type="ActionLink" t:id="agregarPaciente" t:context="paciente.clave">
-                                <img src="${context:/imagenes/Anhadir.png}" title="${message:vincular-button}"/>
+                                <img src="${context:/imagenes/Grey-Plus.png}"
+                                     onmouseover="this.src='${context:/imagenes/Black-Plus.png}'"
+                                     onmouseout="this.src='${context:/imagenes/Grey-Plus.png}'"
+                                     title="${message:vincular-button}"/>
                             </a>
                         </div>
                     </p:else>

@@ -270,7 +270,10 @@
                         <t:if test="${informeEliminable(informe.clave)}">
                             <div id="accion">
                                 <a t:type="EventLink" t:event="eliminarInforme" t:context="informe.clave">
-                                    <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarInforme-link}"/>
+                                    <img src="${context:/imagenes/Grey-Cross.png}"
+                                         onmouseover="this.src='${context:/imagenes/Black-Cross.png}'"
+                                         onmouseout="this.src='${context:/imagenes/Grey-Cross.png}'"
+                                         title="${message:eliminarInforme-link}"/>
                                 </a>
                             </div>
                         </t:if>
@@ -320,27 +323,39 @@
                             <t:if test="${esAdministrador()}">
                                 <div id="accion">
                                     <a t:type="EventLink" t:event="asignarPrueba" t:context="prueba.clave">
-                                        <img src="${context:/imagenes/Asignar.png}" title="${message:asignarPrueba-link}"/>
+                                        <img src="${context:/imagenes/Grey-Paperclip.png}"
+                                             onmouseover="this.src='${context:/imagenes/Black-Paperclip.png}'"
+                                             onmouseout="this.src='${context:/imagenes/Grey-Paperclip.png}'"
+                                             title="${message:asignarPrueba-link}"/>
                                     </a>
                                 </div>
                             </t:if>
                             <div id="accion">
                                 <a t:type="EventLink" t:event="agregarPrueba" t:context="prueba.clave">
-                                    <img src="${context:/imagenes/Anhadir.png}" title="${message:agregarPrueba-link}"/>
+                                    <img src="${context:/imagenes/Grey-Plus.png}"
+                                         onmouseover="this.src='${context:/imagenes/Black-Plus.png}'"
+                                         onmouseout="this.src='${context:/imagenes/Grey-Plus.png}'"
+                                         title="${message:agregarPrueba-link}"/>
                                 </a>
                             </div>
                         </t:if>
                         <t:if test="${pruebaDesvinculable(prueba.clave)}">
                             <div id="accion">
                                 <a t:type="EventLink" t:event="desvincularPrueba" t:context="prueba.clave">
-                                    <img src="${context:/imagenes/Desvincular.png}" title="${message:desvincularPrueba-link}"/>
+                                    <img src="${context:/imagenes/Grey-Remove.png}"
+                                         onmouseover="this.src='${context:/imagenes/Black-Remove.png}'"
+                                         onmouseout="this.src='${context:/imagenes/Grey-Remove.png}'"
+                                         title="${message:desvincularPrueba-link}"/>
                                 </a>
                             </div>
                         </t:if>
                         <t:if test="${pruebaEliminable(prueba.clave)}">
                             <div id="accion">
                                 <a t:type="EventLink" t:event="eliminarPrueba" t:context="prueba.clave">
-                                    <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarPrueba-link}"/>
+                                    <img src="${context:/imagenes/Grey-Cross.png}"
+                                         onmouseover="this.src='${context:/imagenes/Black-Cross.png}'"
+                                         onmouseout="this.src='${context:/imagenes/Grey-Cross.png}'"
+                                         title="${message:eliminarPrueba-link}"/>
                                 </a>
                             </div>
                         </t:if>
@@ -363,7 +378,10 @@
                             <t:if test="${esDesvinculable(paciente.clave)}">
                                 <div id="accion">
                                     <a t:type="ActionLink" t:id="quitarMedico" t:context="paciente.clave">
-                                        <img src="${context:/imagenes/Desvincular.png}" title="${message:desvincular-button}"/>
+                                        <img src="${context:/imagenes/Grey-Remove.png}"
+                                             onmouseover="this.src='${context:/imagenes/Black-Remove.png}'"
+                                             onmouseout="this.src='${context:/imagenes/Grey-Remove.png}'"
+                                             title="${message:desvincular-button}"/>
                                     </a>
                                 </div>
                             </t:if>

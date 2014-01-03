@@ -137,7 +137,7 @@ body {
 }
 
 #cabecera #usuario img:hover {
-    height: 24px;
+    height: 23px;
 }
 
 /***********************************CABECERA***********************************/
@@ -454,7 +454,7 @@ table img {
 }
 
 table img:hover {
-    height: 24px;
+    height: 20px;
 }
 
 /************************************TABLA*************************************/

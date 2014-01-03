@@ -180,7 +180,10 @@
                         <t:if test="${imagenAgregable()}">
                             <a t:type="eventlink" t:event="eliminarImagen" t:context="${imagen.clave}">
                                 <div class="enlace">
-                                    <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarImagen-link}"/>
+                                    <img src="${context:/imagenes/Grey-Cross.png}"
+                                         onmouseover="this.src='${context:/imagenes/Black-Cross.png}'"
+                                         onmouseout="this.src='${context:/imagenes/Grey-Cross.png}'"
+                                         title="${message:eliminarImagen-link}"/>
                                 </div>
                             </a>
                         </t:if>

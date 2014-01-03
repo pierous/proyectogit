@@ -120,7 +120,10 @@
                 <t:if test="${informeEliminable(informe.clave)}">
                     <div id="accion">
                         <a t:type="EventLink" t:event="eliminarInforme" t:context="informe.clave">
-                            <img src="${context:/imagenes/eliminar-icono.png}" title="${message:eliminarInforme-link}"/>
+                            <img src="${context:/imagenes/Grey-Cross.png}"
+                                 onmouseover="this.src='${context:/imagenes/Black-Cross.png}'"
+                                 onmouseout="this.src='${context:/imagenes/Grey-Cross.png}'"
+                                 title="${message:eliminarInforme-link}"/>
                         </a>
                     </div>
                 </t:if>
